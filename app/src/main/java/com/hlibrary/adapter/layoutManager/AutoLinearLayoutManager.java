@@ -58,7 +58,7 @@ public class AutoLinearLayoutManager extends LinearLayoutManager {
 
     @Override
     public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
-        Logger.i(TAG, "count:" + getItemCount() + " === heightSpec " + heightSpec);
+        Logger.getInstance().i(TAG, "count:" + getItemCount() + " === heightSpec " + heightSpec);
         if (maxItem > 0 && maxItem < getItemCount()) {
             super.onMeasure(recycler, state, widthSpec, heightSpec);
             return;
@@ -71,7 +71,7 @@ public class AutoLinearLayoutManager extends LinearLayoutManager {
         int height = 0;
 
 
-        Logger.i(TAG, "state:" + state.toString());
+        Logger.getInstance().i(TAG, "state:" + state.toString());
         int total = state.getItemCount();
         if (maxItem > 0)
             total = total > maxItem ? maxItem : total;

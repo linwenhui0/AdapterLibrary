@@ -115,7 +115,7 @@ public abstract class ObjectBaseRecyclerAdapter<T> extends RecyclerView.Adapter<
 
         @Override
         public void onItemClick(View v, int postion, T bean) {
-            Logger.i(TAG, " === onItemClick === position " + postion);
+            Logger.getInstance().i(TAG, " === onItemClick === position " + postion);
             if (adapterWeakReference != null) {
                 H adapter = adapterWeakReference.get();
                 if (adapter != null) {

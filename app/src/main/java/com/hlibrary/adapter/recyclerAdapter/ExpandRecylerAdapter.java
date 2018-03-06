@@ -179,7 +179,7 @@ public abstract class ExpandRecylerAdapter<T, HVo extends HeadFootAdatperVo, FVo
 
         @Override
         public final void onItemClick(View v, int postion, T bean) {
-            Logger.i(TAG, " === onItemClick === position " + postion);
+            Logger.getInstance().i(TAG, " === onItemClick === position " + postion);
             if (adapterWeakReference != null) {
                 ExpandRecylerAdapter adapter = adapterWeakReference.get();
                 if (adapter != null) {
