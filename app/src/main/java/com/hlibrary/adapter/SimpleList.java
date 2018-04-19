@@ -7,6 +7,8 @@ package com.hlibrary.adapter;
 
 import android.support.annotation.NonNull;
 
+import com.hlibrary.util.Logger;
+
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -88,6 +90,7 @@ public class SimpleList<T, K> implements IListInterface<T> {
         if (adapter != null) {
             K objectBaseAdapter = adapter.get();
             if (objectBaseAdapter != null) {
+                Logger.getInstance().defaultTagD(objectBaseAdapter.getClass().getName());
                 try {
                     Method method = kClass.getDeclaredMethod(methodName);
                     return method.invoke(objectBaseAdapter);
