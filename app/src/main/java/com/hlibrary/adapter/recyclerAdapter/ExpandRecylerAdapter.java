@@ -30,7 +30,7 @@ public abstract class ExpandRecylerAdapter<T, HVo extends HeadFootAdatperVo, FVo
         super(context, layoutId);
         headLayoutIds = new ArrayList<>();
         footLayoutIds = new ArrayList<>();
-        listInterface = new ExpandSimpleList<>(data, this, ExpandRecylerAdapter.class, headLayoutIds, footLayoutIds);
+        listInterface = new ExpandSimpleList<T, ExpandRecylerAdapter, HVo, FVo>(data, this, ExpandRecylerAdapter.class, headLayoutIds, footLayoutIds);
         headEventImp = new ExpandEventImp<HVo>(this) {
             @Override
             public OnItemClickListener<HVo> getOnItemClickListener(ExpandRecylerAdapter adapter) {
