@@ -31,7 +31,7 @@ public abstract class ObjectBaseRecyclerAdapter<T> extends RecyclerView.Adapter<
     public ObjectBaseRecyclerAdapter(Context context, int layoutId) {
         inflater = LayoutInflater.from(context);
         this.layoutId = layoutId;
-        listInterface = new SimpleList<T, ObjectBaseRecyclerAdapter>(data, this, ObjectBaseRecyclerAdapter.class);
+        listInterface = new SimpleList<>(data);
         eventImp = new EventImp<T, ObjectBaseRecyclerAdapter>(this) {
             @Override
             public T getEventItem(int pos) {

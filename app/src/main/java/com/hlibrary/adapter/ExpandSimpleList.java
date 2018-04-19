@@ -11,25 +11,25 @@ import java.util.List;
  * Created by linwenhui on 2017/8/16.
  */
 
-public class ExpandSimpleList<T, K, HVo extends HeadFootAdatperVo, FVo extends HeadFootAdatperVo> extends SimpleList<T, K> {
+public class ExpandSimpleList<T, HVo extends HeadFootAdatperVo, FVo extends HeadFootAdatperVo> extends SimpleList<T> {
 
     private List<HVo> headLayoutIds;
     private List<FVo> footLayoutIds;
 
-    public ExpandSimpleList(@NonNull List<T> datas, @NonNull K adapter, Class<K> kClass, List<HVo> headLayoutIds, List<FVo> footLayoutIds) {
-        super(datas, adapter, kClass);
+    public ExpandSimpleList(@NonNull List<T> datas, List<HVo> headLayoutIds, List<FVo> footLayoutIds) {
+        super(datas);
         this.headLayoutIds = headLayoutIds;
         this.footLayoutIds = footLayoutIds;
     }
 
-    public ExpandSimpleList<T, K, HVo, FVo> addHeadView(@NonNull HVo headLayoutId) {
+    public ExpandSimpleList<T, HVo, FVo> addHeadView(@NonNull HVo headLayoutId) {
         if (!headLayoutIds.contains(headLayoutId)) {
             headLayoutIds.add(headLayoutId);
         }
         return this;
     }
 
-    public ExpandSimpleList<T, K, HVo, FVo> addFootView(@NonNull FVo footLayoutId) {
+    public ExpandSimpleList<T, HVo, FVo> addFootView(@NonNull FVo footLayoutId) {
         if (!footLayoutIds.contains(footLayoutId)) {
             footLayoutIds.add(footLayoutId);
         }
@@ -41,7 +41,7 @@ public class ExpandSimpleList<T, K, HVo extends HeadFootAdatperVo, FVo extends H
     }
 
     @Override
-    public ExpandSimpleList<T, K, HVo, FVo> addObject(T t) {
+    public ExpandSimpleList<T, HVo, FVo> addObject(T t) {
         int size = getItemCount();
         int footNum = footLayoutIds.size();
         if (footNum > 0)
@@ -51,7 +51,7 @@ public class ExpandSimpleList<T, K, HVo extends HeadFootAdatperVo, FVo extends H
     }
 
     @Override
-    public ExpandSimpleList<T, K, HVo, FVo> addAll(Collection<? extends T> ts) {
+    public ExpandSimpleList<T, HVo, FVo> addAll(Collection<? extends T> ts) {
         int size = getItemCount();
         int footNum = footLayoutIds.size();
         if (footNum > 0)

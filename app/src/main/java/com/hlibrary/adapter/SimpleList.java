@@ -7,24 +7,16 @@ package com.hlibrary.adapter;
 
 import android.support.annotation.NonNull;
 
-import com.hlibrary.util.Logger;
-
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 
-public class SimpleList<T, K> implements IListInterface<T> {
+public class SimpleList<T> implements IListInterface<T> {
 
 
     protected List<T> datas;
-    protected WeakReference<K> adapter;
-    private Class<K> kClass;
 
-    public SimpleList(@NonNull List<T> datas, @NonNull K adapter, Class<K> kClass) {
+    public SimpleList(@NonNull List<T> datas) {
         this.datas = datas;
-        this.adapter = new WeakReference<>(adapter);
-        this.kClass = kClass;
     }
 
     @Override
@@ -72,52 +64,6 @@ public class SimpleList<T, K> implements IListInterface<T> {
     public IListInterface<T> removeAll() {
         datas.clear();
         return this;
-    }
-
-    @Override
-    public IListInterface<T> notifyDataSetChanged() throws NoSuchMethodException {
-        reflectMethod("notifyDataSetChanged");
-        return this;
-    }
-
-    @Override
-    public IListInterface<T> notifyDataSetInvalidated() throws NoSuchMethodException {
-        reflectMethod("notifyDataSetInvalidated");
-        return this;
-    }
-
-    public Object reflectMethod(String methodName) throws NoSuchMethodException {
-        if (adapter != null) {
-            K objectBaseAdapter = adapter.get();
-            if (objectBaseAdapter != null) {
-                Logger.getInstance().defaultTagD(objectBaseAdapter.getClass().getName());
-                try {
-                    Method method = kClass.getDeclaredMethod(methodName);
-                    return method.invoke(objectBaseAdapter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    throw new NoSuchMethodException("No Such Method");
-                }
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public Object reflectMethod(String methodName, Class[] params, Object[] paramValues) throws NoSuchMethodException {
-        if (adapter != null) {
-            K objectBaseAdapter = adapter.get();
-            if (objectBaseAdapter != null) {
-                try {
-                    Method method = kClass.getDeclaredMethod(methodName, params);
-                    return method.invoke(objectBaseAdapter, paramValues);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    throw new NoSuchMethodException("No Such Method");
-                }
-            }
-        }
-        return null;
     }
 
 }

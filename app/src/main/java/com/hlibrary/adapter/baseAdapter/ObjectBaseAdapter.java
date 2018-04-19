@@ -29,7 +29,7 @@ public class ObjectBaseAdapter<T> extends BaseAdapter {
         this.mItemLayoutId = mItemLayoutId;
         this.variableId = variableId;
         inflater = LayoutInflater.from(context.getApplicationContext());
-        mListInterface = new SimpleList<>(data, this, ObjectBaseAdapter.class);
+        mListInterface = new SimpleList<>(data);
     }
 
     public IListInterface<T> getListInterface() {

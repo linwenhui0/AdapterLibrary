@@ -22,12 +22,4 @@ public interface IListInterface<T> {
     IListInterface<T> addAll(int index, @NonNull Collection<? extends T> ts);
 
     IListInterface<T> removeAll();
-
-    IListInterface<T> notifyDataSetChanged() throws NoSuchMethodException;
-
-    IListInterface<T> notifyDataSetInvalidated() throws NoSuchMethodException;
-
-    Object reflectMethod(String methodName) throws NoSuchMethodException;
-
-    Object reflectMethod(String methodName, Class[] params, Object[] paramValues) throws NoSuchMethodException;
 }

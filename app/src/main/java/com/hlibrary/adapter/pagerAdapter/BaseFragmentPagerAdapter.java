@@ -22,7 +22,7 @@ public class BaseFragmentPagerAdapter extends FragmentPagerAdapter {
 
     public BaseFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
-        fragmentIListInterface = new SimpleList<>(fragments, this, BaseFragmentPagerAdapter.class);
+        fragmentIListInterface = new SimpleList<>(fragments);
     }
 
     @Override
