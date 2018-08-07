@@ -121,34 +121,25 @@ public abstract class ExpandRecylerAdapter<T, HVo extends HeadFootAdatperVo, FVo
 
     }
 
-    public abstract int getDefaultHeadVariableId();
 
     public void onBindHeadViewHolder(RecylerViewHolder holder, int position) {
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(headEventImp);
-        if (getDefaultHeadVariableId() == 0) {
-            final int headVariableId = getHeadItem(position).getVariableId();
-            if (headVariableId > 0)
-                holder.getBinding().setVariable(headVariableId, getHeadItem(position));
-        } else {
-            holder.getBinding().setVariable(getDefaultHeadVariableId(), getHeadItem(position));
+        final int headVariableId = getHeadItem(position).getVariableId();
+        if (headVariableId > 0) {
+            holder.getBinding().setVariable(headVariableId, getHeadItem(position));
+            holder.getBinding().executePendingBindings();
         }
-        holder.getBinding().executePendingBindings();
     }
-
-    public abstract int getDefaultFootVariableId();
 
     public void onBindFootViewHolder(RecylerViewHolder holder, int position) {
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(footEventImp);
-        if (getDefaultFootVariableId() == 0) {
-            final int footVariableId = getFootItem(position).getVariableId();
-            if (footVariableId > 0)
-                holder.getBinding().setVariable(footVariableId, getFootItem(position));
-        } else {
-            holder.getBinding().setVariable(getDefaultFootVariableId(), getFootItem(position));
+        final int footVariableId = getFootItem(position).getVariableId();
+        if (footVariableId > 0) {
+            holder.getBinding().setVariable(footVariableId, getFootItem(position));
+            holder.getBinding().executePendingBindings();
         }
-        holder.getBinding().executePendingBindings();
     }
 
     @Override

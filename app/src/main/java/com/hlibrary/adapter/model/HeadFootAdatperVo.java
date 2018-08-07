@@ -20,4 +20,5 @@ public class HeadFootAdatperVo extends AdapterVo {
         this.variableId = variableId;
     }
 
+
 }
