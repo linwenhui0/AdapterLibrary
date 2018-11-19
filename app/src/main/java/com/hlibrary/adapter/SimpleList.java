@@ -21,15 +21,17 @@ public class SimpleList<T> implements IListInterface<T> {
 
     @Override
     public IListInterface<T> addObject(@NonNull T t) {
-        if (!this.datas.contains(t))
+        if (!this.datas.contains(t)) {
             datas.add(t);
+        }
         return this;
     }
 
     @Override
     public IListInterface<T> addObject(int pos, T t) {
-        if (!this.datas.contains(t))
+        if (!this.datas.contains(t)) {
             datas.add(pos, t);
+        }
         return this;
     }
 
@@ -64,6 +66,11 @@ public class SimpleList<T> implements IListInterface<T> {
     public IListInterface<T> removeAll() {
         datas.clear();
         return this;
+    }
+
+    @Override
+    public int indexOf(T model) {
+        return datas.indexOf(model);
     }
 
 }

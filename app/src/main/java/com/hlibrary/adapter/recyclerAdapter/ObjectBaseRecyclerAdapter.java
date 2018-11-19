@@ -40,6 +40,10 @@ public abstract class ObjectBaseRecyclerAdapter<T> extends RecyclerView.Adapter<
         };
     }
 
+    public boolean useDataBinding() {
+        return true;
+    }
+
     public IListInterface<T> getListInterface() {
         return listInterface;
     }
@@ -59,14 +63,18 @@ public abstract class ObjectBaseRecyclerAdapter<T> extends RecyclerView.Adapter<
 
     @Override
     public RecylerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewDataBinding binding = DataBindingUtil.inflate(inflater, viewType, parent, false);
         RecylerViewHolder holder;
-        if (binding != null) {
-            holder = new RecylerViewHolder(binding.getRoot());
-            holder.setBinding(binding);
+        if (useDataBinding()) {
+            ViewDataBinding binding = DataBindingUtil.inflate(inflater, viewType, parent, false);
+            if (binding != null) {
+                holder = new RecylerViewHolder(binding.getRoot());
+                holder.setBinding(binding);
+            } else {
+                View v = inflater.inflate(viewType, parent, false);
+                holder = new RecylerViewHolder(v);
+            }
         } else {
-            View v = inflater.inflate(viewType, parent, false);
-            holder = new RecylerViewHolder(v);
+            holder = new RecylerViewHolder(inflater.inflate(viewType, parent, false));
         }
         return holder;
     }
@@ -75,10 +83,12 @@ public abstract class ObjectBaseRecyclerAdapter<T> extends RecyclerView.Adapter<
     public void onBindViewHolder(RecylerViewHolder holder, int position) {
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(eventImp);
-        ViewDataBinding binding = holder.getBinding();
-        if (binding != null) {
-            holder.getBinding().setVariable(getVariableId(), getItem(position));
-            holder.getBinding().executePendingBindings();
+        if (useDataBinding()) {
+            ViewDataBinding binding = holder.getBinding();
+            if (binding != null) {
+                holder.getBinding().setVariable(getVariableId(), getItem(position));
+                holder.getBinding().executePendingBindings();
+            }
         }
     }
 

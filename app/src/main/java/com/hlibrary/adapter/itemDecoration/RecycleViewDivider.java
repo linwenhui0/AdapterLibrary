@@ -16,7 +16,6 @@ import android.view.View;
 /**
  * Created by linwenhui on 2017/8/28.
  */
-
 public class RecycleViewDivider extends RecyclerView.ItemDecoration {
 
     private Drawable mDivider;
@@ -52,7 +51,9 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
     public RecycleViewDivider(Context context, int orientation, @DrawableRes int drawableId) {
         this(context, orientation);
         mDivider = ContextCompat.getDrawable(context, drawableId);
-        mDividerHeight = mDivider.getIntrinsicHeight();
+        if (mDivider != null) {
+            mDividerHeight = mDivider.getIntrinsicHeight();
+        }
     }
 
     /**
@@ -95,10 +96,11 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        if (mOrientation == LinearLayoutManager.VERTICAL)
+        if (mOrientation == LinearLayoutManager.VERTICAL) {
             outRect.set(0, 0, 0, mDividerHeight);
-        else
+        } else {
             outRect.set(0, 0, mDividerHeight, 0);
+        }
     }
 
     //绘制分割线
@@ -149,11 +151,10 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
             } else {
                 right = left + mDividerHeight;
             }
-            if (showLast)
-                if (mDivider != null) {
-                    mDivider.setBounds(left, top, right, bottom);
-                    mDivider.draw(canvas);
-                }
+            if (showLast && mDivider != null) {
+                mDivider.setBounds(left, top, right, bottom);
+                mDivider.draw(canvas);
+            }
         }
     }
 

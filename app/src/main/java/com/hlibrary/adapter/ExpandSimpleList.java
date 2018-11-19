@@ -44,9 +44,11 @@ public class ExpandSimpleList<T, HVo extends HeadFootAdatperVo, FVo extends Head
     public ExpandSimpleList<T, HVo, FVo> addObject(T t) {
         int size = getItemCount();
         int footNum = footLayoutIds.size();
-        if (footNum > 0)
+        if (footNum > 0) {
             super.addObject(size - footNum, t);
-        else super.addObject(t);
+        } else {
+            super.addObject(t);
+        }
         return this;
     }
 
@@ -54,9 +56,11 @@ public class ExpandSimpleList<T, HVo extends HeadFootAdatperVo, FVo extends Head
     public ExpandSimpleList<T, HVo, FVo> addAll(Collection<? extends T> ts) {
         int size = getItemCount();
         int footNum = footLayoutIds.size();
-        if (footNum > 0)
+        if (footNum > 0) {
             super.addAll(size - footNum, ts);
-        else super.addAll(ts);
+        } else {
+            super.addAll(ts);
+        }
         return this;
     }
 

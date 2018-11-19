@@ -22,4 +22,6 @@ public interface IListInterface<T> {
     IListInterface<T> addAll(int index, @NonNull Collection<? extends T> ts);
 
     IListInterface<T> removeAll();
+
+    int indexOf(T model);
 }
