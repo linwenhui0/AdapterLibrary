@@ -28,7 +28,7 @@ dependencies {
     compileOnly 'com.android.support:support-annotations:27.1.1'
     compileOnly 'com.android.support:appcompat-v7:27.1.1'
     compileOnly 'com.android.support:recyclerview-v7:27.1.1'
-    compileOnly 'com.hlibrary.util:utillibrary:0.0.1'
+    implementation 'com.hlibrary.util:utillibrary:0.0.6.1-SNAPSHOT'
 }
 
 apply from: 'http://108.160.143.119/gradle/gradle-mvn-push.gradle'
