@@ -11,16 +11,16 @@ import com.hlibrary.adapter.model.RecyclerViewHolder
 import java.lang.ref.WeakReference
 import java.util.*
 
-abstract class ObjectBaseRecyclerAdapter<T>(context: Context?, protected val layoutId: Int) : RecyclerView.Adapter<RecyclerViewHolder>() {
+abstract class ObjectBaseRecyclerAdapter<T, R : ViewDataBinding>(context: Context?, protected val layoutId: Int) : RecyclerView.Adapter<RecyclerViewHolder>() {
 
     @JvmField
     protected var data: MutableList<T> = ArrayList()
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     protected var itemClickListener: OnItemClickListener<T>? = null
-    private val eventImp: EventImp<T, ObjectBaseRecyclerAdapter<T>>
+    private val eventImp: EventImp<T, ObjectBaseRecyclerAdapter<T,R>>
 
     init {
-        eventImp = object : EventImp<T, ObjectBaseRecyclerAdapter<T>>(this) {
+        eventImp = object : EventImp<T, ObjectBaseRecyclerAdapter<T,R>>(this) {
             override fun getEventItem(pos: Int): T? {
                 return getItem(pos)
             }
@@ -93,7 +93,7 @@ abstract class ObjectBaseRecyclerAdapter<T>(context: Context?, protected val lay
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val holder: RecyclerViewHolder
-        val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, viewType, parent, false)
+        val binding = DataBindingUtil.inflate<R>(inflater, viewType, parent, false)
         if (binding != null) {
             holder = RecyclerViewHolder(binding.root)
             holder.binding = binding
@@ -111,7 +111,7 @@ abstract class ObjectBaseRecyclerAdapter<T>(context: Context?, protected val lay
     }
 
 
-    abstract inner class EventImp<T, H : ObjectBaseRecyclerAdapter<T>?>(adapter: H) : View.OnClickListener, OnItemClickListener<T> {
+    abstract inner class EventImp<T, H : ObjectBaseRecyclerAdapter<T,R>?>(adapter: H) : View.OnClickListener, OnItemClickListener<T> {
 
         protected var adapterWeakReference: WeakReference<H>? = WeakReference(adapter)
 

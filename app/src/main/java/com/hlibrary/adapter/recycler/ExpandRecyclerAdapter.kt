@@ -2,13 +2,14 @@ package com.hlibrary.adapter.recycler
 
 import android.content.Context
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import com.hlibrary.adapter.model.HeadFootAdapterVo
 import com.hlibrary.adapter.model.RecyclerViewHolder
 
 /**
  * Created by linwenhui on 2015/9/29.
  */
-abstract class ExpandRecyclerAdapter<T, HVo : HeadFootAdapterVo<T>?, FVo : HeadFootAdapterVo<T>?>(context: Context?, layoutId: Int) : ObjectBaseRecyclerAdapter<T>(context, layoutId) {
+abstract class ExpandRecyclerAdapter<T, R : ViewDataBinding, HVo : HeadFootAdapterVo<T>?, FVo : HeadFootAdapterVo<T>?>(context: Context?, layoutId: Int) : ObjectBaseRecyclerAdapter<T, R>(context, layoutId) {
     private val headLayoutIds: MutableList<HVo> = ArrayList()
     private val footLayoutIds: MutableList<FVo> = ArrayList()
     private var onHeadItemClickListener: OnItemClickListener<HVo>? = null
@@ -148,28 +149,11 @@ abstract class ExpandRecyclerAdapter<T, HVo : HeadFootAdapterVo<T>?, FVo : HeadF
     fun onBindHeadViewHolder(holder: RecyclerViewHolder, position: Int) {
         holder.itemView.tag = position
         holder.itemView.setOnClickListener(headEventImp)
-        val headVariableId = getHeadItem(position)?.variableId
-        if (headVariableId != null && headVariableId > 0) {
-            try {
-                holder.binding?.setVariable(headVariableId, getHeadItem(position)?.data)
-                holder.binding?.executePendingBindings()
-            } catch (e: Exception) {
-            }
-
-        }
     }
 
     fun onBindFootViewHolder(holder: RecyclerViewHolder, position: Int) {
         holder.itemView.tag = position
         holder.itemView.setOnClickListener(footEventImp)
-        val footVariableId = getFootItem(position)?.variableId
-        if (footVariableId != null && footVariableId > 0) {
-            try {
-                holder.binding?.setVariable(footVariableId, getFootItem(position)?.data)
-                holder.binding?.executePendingBindings()
-            } catch (e: Exception) {
-            }
-        }
     }
 
     final override fun getItemViewType(position: Int): Int {
@@ -189,9 +173,9 @@ abstract class ExpandRecyclerAdapter<T, HVo : HeadFootAdapterVo<T>?, FVo : HeadF
         return super.getItemViewType(position)
     }
 
-    abstract inner class ExpandEventImp<T>(adapter: ExpandRecyclerAdapter<*, HVo, FVo>?) : EventImp<T, ExpandRecyclerAdapter<*, HVo, FVo>?>(adapter) {
+    abstract inner class ExpandEventImp<T>(adapter: ExpandRecyclerAdapter<*, R, HVo, FVo>?) : EventImp<T, ExpandRecyclerAdapter<*, R, HVo, FVo>?>(adapter) {
 
-        abstract fun getOnItemClickListener(adapter: ExpandRecyclerAdapter<*, HVo, FVo>?): OnItemClickListener<T>?
+        abstract fun getOnItemClickListener(adapter: ExpandRecyclerAdapter<*, R, HVo, FVo>?): OnItemClickListener<T>?
 
         override fun onItemClick(v: View?, postion: Int, bean: T?) {
             if (adapterWeakReference != null) {
@@ -212,7 +196,7 @@ abstract class ExpandRecyclerAdapter<T, HVo : HeadFootAdapterVo<T>?, FVo : HeadF
                 return getHeadItem(pos)
             }
 
-            override fun getOnItemClickListener(adapter: ExpandRecyclerAdapter<*, HVo, FVo>?): OnItemClickListener<HVo>? {
+            override fun getOnItemClickListener(adapter: ExpandRecyclerAdapter<*, R, HVo, FVo>?): OnItemClickListener<HVo>? {
                 return adapter?.onHeadItemClickListener
             }
         }
@@ -223,7 +207,7 @@ abstract class ExpandRecyclerAdapter<T, HVo : HeadFootAdapterVo<T>?, FVo : HeadF
                 return getFootItem(pos)
             }
 
-            override fun getOnItemClickListener(adapter: ExpandRecyclerAdapter<*, HVo, FVo>?): OnItemClickListener<FVo>? {
+            override fun getOnItemClickListener(adapter: ExpandRecyclerAdapter<*, R, HVo, FVo>?): OnItemClickListener<FVo>? {
                 return adapter?.onFootItemClickListener
             }
         }
