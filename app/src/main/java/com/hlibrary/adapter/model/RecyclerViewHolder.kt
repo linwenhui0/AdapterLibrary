@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
  * @author linwh
  * @date 2016-09-06
  */
-class RecyclerViewHolder(private val mConvertView: View) : ViewHolder(mConvertView) {
+class RecyclerViewHolder<V:ViewDataBinding>(private val mConvertView: View) : ViewHolder(mConvertView) {
     private val mViews: SparseArray<View?> = SparseArray()
-    var binding: ViewDataBinding? = null
+    var binding: V? = null
 
     /**
      * 通过viewId获取控件

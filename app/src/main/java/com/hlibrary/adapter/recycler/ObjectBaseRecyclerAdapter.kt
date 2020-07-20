@@ -11,7 +11,7 @@ import com.hlibrary.adapter.model.RecyclerViewHolder
 import java.lang.ref.WeakReference
 import java.util.*
 
-abstract class ObjectBaseRecyclerAdapter<T, R : ViewDataBinding>(context: Context?, protected val layoutId: Int) : RecyclerView.Adapter<RecyclerViewHolder>() {
+abstract class ObjectBaseRecyclerAdapter<T, R : ViewDataBinding>(context: Context?, protected val layoutId: Int) : RecyclerView.Adapter<RecyclerViewHolder<R>>() {
 
     @JvmField
     protected var data: MutableList<T> = ArrayList()
@@ -91,8 +91,8 @@ abstract class ObjectBaseRecyclerAdapter<T, R : ViewDataBinding>(context: Contex
         return layoutId
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val holder: RecyclerViewHolder
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder<R> {
+        val holder: RecyclerViewHolder<R>
         val binding = DataBindingUtil.inflate<R>(inflater, viewType, parent, false)
         if (binding != null) {
             holder = RecyclerViewHolder(binding.root)
@@ -104,7 +104,7 @@ abstract class ObjectBaseRecyclerAdapter<T, R : ViewDataBinding>(context: Contex
         return holder
     }
 
-    override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerViewHolder<R>, position: Int) {
         holder.itemView.tag = position
         holder.itemView.setOnClickListener(eventImp)
 
