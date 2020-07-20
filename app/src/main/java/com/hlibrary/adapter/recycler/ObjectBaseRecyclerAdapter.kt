@@ -18,7 +18,6 @@ abstract class ObjectBaseRecyclerAdapter<T>(context: Context?, protected val lay
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     protected var itemClickListener: OnItemClickListener<T>? = null
     private val eventImp: EventImp<T, ObjectBaseRecyclerAdapter<T>>
-    abstract val variableId: Int
 
     init {
         eventImp = object : EventImp<T, ObjectBaseRecyclerAdapter<T>>(this) {
@@ -108,11 +107,6 @@ abstract class ObjectBaseRecyclerAdapter<T>(context: Context?, protected val lay
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         holder.itemView.tag = position
         holder.itemView.setOnClickListener(eventImp)
-        val binding = holder.binding
-        if (binding != null) {
-            binding.setVariable(variableId, getItem(position))
-            binding.executePendingBindings()
-        }
 
     }
 
